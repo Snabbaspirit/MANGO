@@ -25,7 +25,7 @@ export const NewDealModal = (props: IModalProps) => {
     }, 1000);
 
     return () => clearInterval(interval.current);
-  }, []);
+  }, [inputValue]);
 
   return (
     <Container>
@@ -44,7 +44,8 @@ export const NewDealModal = (props: IModalProps) => {
       <InputContainer>
         <InputLabel>Enter Value</InputLabel>
         <Input
-          type="text"
+          type="number"
+          value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
@@ -119,6 +120,16 @@ const Input = styled.input`
     border: 1px solid #00a3ff;
     box-shadow: 0px 0px 0px 4px rgba(0, 163, 255, 0.1);
   }
+
+  ::-webkit-inner-spin-button{
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  
+  ::-webkit-outer-spin-button{
+      -webkit-appearance: none; 
+      margin: 0; 
+  } 
 `;
 
 const InputContainer = styled.div`
