@@ -11,6 +11,12 @@ import ReactDOM from "react-dom";
 export const socket = io.connect("http://localhost:8080");
 export const datePattern = "dd MMM yyyy hh:mm:ss";
 
+const safeRootElement = () => {
+  const root = document.createElement("div");
+  document.body.appendChild(root);
+  return root;
+}
+
 function App() {
   const [, { onSetTradeData }] = useAppContext();
 
@@ -25,7 +31,7 @@ function App() {
   };
 
   const modalRoot =
-    document.getElementById("modal-root") ?? document.createElement("div");
+    document.getElementById("modal-root") ?? safeRootElement();
 
   const ModalPortal = () =>
     ReactDOM.createPortal(
