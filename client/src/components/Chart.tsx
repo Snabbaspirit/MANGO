@@ -10,7 +10,7 @@ const defaultChartOptions = {
   onHover: () => void 0,
   plugins: {
     tooltip: {
-      enabled: true,
+      enabled: false,
     },
     legend: {
       display: false,
@@ -50,7 +50,7 @@ const defaultDataset = {
 };
 
 export const Chart = () => {
-  const [{ tradeData }] = useAppContext();
+  const [{ tradeData, itemsToDisplay }] = useAppContext();
 
   const options = useMemo(() => {
     return {
@@ -64,8 +64,10 @@ export const Chart = () => {
   }, []);
 
   const dataset = React.useMemo(() => {
-
-    const formattedData = prepareDataToDataset(tradeData);
+    const formattedData = prepareDataToDataset(tradeData).slice(
+      itemsToDisplay.from,
+      itemsToDisplay.to
+    );
 
     const defaultDatasetWithData = {
       ...defaultDataset,
@@ -80,12 +82,12 @@ export const Chart = () => {
     };
 
     return defaultDatasetWithData;
-  }, [tradeData]);
+  }, [tradeData,itemsToDisplay]);
 
   return (
     <div>
       <Line
-        style={{ background: 'linear-gradient(#1E2530,#293341)' }}
+        style={{ background: "linear-gradient(#1E2530,#293341)" }}
         width={500}
         height={300}
         options={options}

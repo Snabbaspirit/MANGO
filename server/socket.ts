@@ -39,8 +39,13 @@ const db = createDataBase();
       socket.emit('dataFromServer', allDBData);
   });
 
+    // Listen to delete msg and remove item from db
+    socket.on('removeSingleTrade', (k: string) => {
+      db.delete(k);
+    })
+
 });
 
 httpServer.listen(port, () => {
-    console.log('server started on port', port);
+    console.log('The server started on port', port);
 });

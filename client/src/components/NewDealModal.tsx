@@ -16,13 +16,11 @@ export const NewDealModal = (props: IModalProps) => {
   const [actualDate, setActualDate] = React.useState<Date>(new Date());
 
   React.useEffect(() => {
-
     const interval = setInterval(() => {
-        setActualDate(new Date());
+      setActualDate(new Date());
     }, 1000);
 
-    return () => clearInterval(interval)
-
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -74,7 +72,7 @@ const ModalHeader = styled.div`
   width: 263px;
 `;
 
-const CloseBtn = styled.button`
+export const CloseBtn = styled.button`
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;

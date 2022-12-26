@@ -1,4 +1,3 @@
 export type TTradeDataFromServer = {
-    [id: string]: { date: Date; value: string };
-  };
-  
+  [id: string]: { date: Date; value: string };
+};

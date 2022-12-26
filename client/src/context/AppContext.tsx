@@ -1,26 +1,54 @@
 import React from "react";
 import { TTradeDataFromServer } from "../types/types";
 
+interface IItemsToDisplay {
+  from: number;
+  to: number;
+}
+
 export interface IAppData {
   tradeData: TTradeDataFromServer;
+  itemsToDisplay: IItemsToDisplay;
 }
 
 export interface IAppHandlers {
   onSetTradeData: React.Dispatch<React.SetStateAction<TTradeDataFromServer>>;
+  onSetItemsToDisplay: React.Dispatch<React.SetStateAction<IItemsToDisplay>>;
 }
 
 const defaultAppData: [IAppData, IAppHandlers] = [
-  { tradeData: {} },
-  { onSetTradeData: () => void 0 },
+  {
+    tradeData: {},
+    itemsToDisplay: { from: 0, to: 5 },
+  },
+  {
+    onSetTradeData: () => void 0,
+    onSetItemsToDisplay: () => void 0,
+  },
 ];
 
 const Context = React.createContext(defaultAppData);
 
 export const AppContext = ({ children }: { children: React.ReactNode }) => {
-  const [tradeData, setTradeData] = React.useState<TTradeDataFromServer>({});
+
+  const [tradeData, setTradeData] = React.useState<TTradeDataFromServer>(
+    defaultAppData[0].tradeData
+  );
+
+  const [itemsToDisplay, setItemsToDisplay] = React.useState(
+    defaultAppData[0].itemsToDisplay
+  );
 
   return (
-    <Context.Provider value={[{ tradeData }, { onSetTradeData: setTradeData }]}>
+    <Context.Provider
+      value={[
+        { tradeData, itemsToDisplay },
+        {
+          onSetTradeData: setTradeData,
+          onSetItemsToDisplay: setItemsToDisplay,
+        },
+      ]}
+    >
       {children}
     </Context.Provider>
   );

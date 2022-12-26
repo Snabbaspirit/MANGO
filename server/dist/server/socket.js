@@ -35,7 +35,11 @@ io.on("connection", (socket) => {
         // Return all DB values
         socket.emit('dataFromServer', allDBData);
     });
+    // Listen to delete msg and remove item from db
+    socket.on('removeSingleTrade', (k) => {
+        db.delete(k);
+    });
 });
 httpServer.listen(port, () => {
-    console.log('server started on port', port);
+    console.log('The server started on port', port);
 });
