@@ -1,8 +1,10 @@
 import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, registerables, ChartEvent } from "chart.js";
+import { Chart as ChartJS, registerables } from "chart.js";
 import { useAppContext } from "../context/AppContext";
 import { prepareDataToDataset } from "../utils/appUtils";
+import { format } from "date-fns";
+import { datePattern } from "../App";
 ChartJS.register(...registerables);
 
 const defaultChartOptions = {
@@ -10,7 +12,12 @@ const defaultChartOptions = {
   onHover: () => void 0,
   plugins: {
     tooltip: {
-      enabled: false,
+      enabled: true,
+      callbacks: {
+        title: function <T extends { label: string }>(data: T[]) {
+          return format(new Date(data[0].label), datePattern);
+        },
+      },
     },
     legend: {
       display: false,
@@ -55,11 +62,11 @@ export const Chart = () => {
   const options = useMemo(() => {
     return {
       ...defaultChartOptions,
-      onHover: (_: ChartEvent, elements: any[]) => {
-        if (elements.length !== 0) {
-          console.log("hover from options", elements);
-        }
-      },
+      // onHover: (_: ChartEvent, elements: any[]) => {
+      //   if (elements.length !== 0) {
+      //     console.log("hover from options", elements);
+      //   }
+      // },
     };
   }, []);
 

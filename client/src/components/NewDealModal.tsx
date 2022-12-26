@@ -15,7 +15,9 @@ export const NewDealModal = (props: IModalProps) => {
   const [inputValue, setInputValue] = React.useState<string>("");
   const [actualDate, setActualDate] = React.useState<Date>(new Date());
 
-  const interval: React.MutableRefObject<ReturnType<typeof setInterval> | undefined> = React.useRef()
+  const interval: React.MutableRefObject<
+    ReturnType<typeof setInterval> | undefined
+  > = React.useRef();
 
   React.useEffect(() => {
     interval.current = setInterval(() => {
@@ -60,7 +62,7 @@ export const NewDealModal = (props: IModalProps) => {
             const timeout = setTimeout(() => {
               onClose();
               clearTimeout(timeout);
-            }, 1000)
+            }, 1000);
           }}
         >
           Proceed
