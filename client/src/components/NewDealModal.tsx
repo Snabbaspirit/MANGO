@@ -57,8 +57,9 @@ export const NewDealModal = (props: IModalProps) => {
               date: new Date(),
               value: inputValue,
             });
-            setTimeout(() => {
+            const timeout = setTimeout(() => {
               onClose();
+              clearTimeout(timeout);
             }, 1000)
           }}
         >
