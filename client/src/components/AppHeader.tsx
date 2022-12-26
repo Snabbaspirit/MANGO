@@ -15,10 +15,8 @@ export const AppHeader = ({
         <Label>Mango Deals</Label>
       </LogoWithLabel>
       <AddNewDealButton onClick={handleOpenModal}>
-        <NewDealLabel>
-        New Deal
-        </NewDealLabel>
-        </AddNewDealButton>
+        <NewDealLabel>New Deal</NewDealLabel>
+      </AddNewDealButton>
     </HeaderContainer>
   );
 };
@@ -43,15 +41,15 @@ const HeaderContainer = styled.div`
   background: linear-gradient(#1f252f, #27303e);
 `;
 
-const AddNewDealButton = styled(CloseBtn)`
-    background: linear-gradient(180deg, #3EAEFF 0%, #00AAE0 100%);
-    border: 3px solid #1B4154;
-    border-radius: 6px;
-    width: 90px;
-    height: 30px;
-    margin-right: 20px;
+export const AddNewDealButton = styled(CloseBtn)`
+  background: linear-gradient(180deg, #3eaeff 0%, #00aae0 100%);
+  border: 3px solid #1b4154;
+  border-radius: 6px;
+  width: 90px;
+  height: 30px;
+  margin-right: 20px;
 `;
 
 const NewDealLabel = styled.span`
-    color: #FFFFFF;
+  color: #ffffff;
 `;

@@ -82,7 +82,7 @@ export const Chart = () => {
     };
 
     return defaultDatasetWithData;
-  }, [tradeData,itemsToDisplay]);
+  }, [tradeData, itemsToDisplay]);
 
   return (
     <div>

@@ -5,6 +5,8 @@ import { Chart } from "./components/Chart";
 import { TradeTable } from "./components/TradeTable";
 import { useAppContext } from "./context/AppContext";
 import { AppHeader } from "./components/AppHeader";
+import styled from "styled-components";
+import ReactDOM from "react-dom";
 
 export const socket = io.connect("http://localhost:8080");
 export const datePattern = "dd MMM yyyy hh:mm:ss";
@@ -22,6 +24,15 @@ function App() {
     setIsModalOpen(true);
   };
 
+  const modalRoot =
+    document.getElementById("modal-root") ?? document.createElement("div");
+
+  const ModalPortal = () =>
+    ReactDOM.createPortal(
+      <NewDealModal onClose={handleCloseModal} />,
+      modalRoot
+    );
+
   React.useEffect(() => {
     socket.on("connect", () => {
       // Emit a request to get all the data from server
@@ -36,16 +47,18 @@ function App() {
   }, [onSetTradeData]);
 
   return (
-    <div style={{ width: "400px" }}>
+    <AppMainContainer isBlurred={isModalOpen}>
       <AppHeader handleOpenModal={handleOpenModal} />
       <Chart />
-      {isModalOpen ? (
-        <NewDealModal onClose={handleCloseModal} />
-      ) : (
-        <TradeTable />
-      )}
-    </div>
+      {isModalOpen && <ModalPortal />}
+      <TradeTable />
+    </AppMainContainer>
   );
 }
 
 export default App;
+
+const AppMainContainer = styled.div<{ isBlurred: boolean }>`
+  ${(props) => (props.isBlurred ? "filter: blur(15px)" : null)};
+  width: 400px;
+`;

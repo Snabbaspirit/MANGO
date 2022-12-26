@@ -1,5 +1,6 @@
 import React from "react";
 import { TTradeDataFromServer } from "../types/types";
+import { DISPLAY_DATA_COUNT } from "../constants/constants";
 
 interface IItemsToDisplay {
   from: number;
@@ -19,7 +20,7 @@ export interface IAppHandlers {
 const defaultAppData: [IAppData, IAppHandlers] = [
   {
     tradeData: {},
-    itemsToDisplay: { from: 0, to: 5 },
+    itemsToDisplay: { from: 0, to: DISPLAY_DATA_COUNT },
   },
   {
     onSetTradeData: () => void 0,
@@ -30,7 +31,6 @@ const defaultAppData: [IAppData, IAppHandlers] = [
 const Context = React.createContext(defaultAppData);
 
 export const AppContext = ({ children }: { children: React.ReactNode }) => {
-
   const [tradeData, setTradeData] = React.useState<TTradeDataFromServer>(
     defaultAppData[0].tradeData
   );

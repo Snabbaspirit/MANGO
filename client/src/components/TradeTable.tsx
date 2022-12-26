@@ -5,10 +5,11 @@ import { datePattern, socket } from "../App";
 import styled from "styled-components";
 import { CloseBtn } from "./NewDealModal";
 import { ReactComponent as RemoveIcon } from "../icons/Trash.svg";
+import { DISPLAY_DATA_COUNT } from "../constants/constants";
 
 export const TradeTable = () => {
-
-  const [{ tradeData, itemsToDisplay }, {onSetItemsToDisplay}] = useAppContext();
+  const [{ tradeData, itemsToDisplay }, { onSetItemsToDisplay }] =
+    useAppContext();
 
   const [rowIndex, setRowIndex] = React.useState<number | null>();
 
@@ -16,21 +17,21 @@ export const TradeTable = () => {
     onSetItemsToDisplay((prev) => {
       return {
         ...prev,
-        from: prev.from + 5,
-        to: prev.to + 5,
+        from: prev.from + DISPLAY_DATA_COUNT,
+        to: prev.to + DISPLAY_DATA_COUNT,
       };
     });
-  },[onSetItemsToDisplay]);
+  }, [onSetItemsToDisplay]);
 
   const handleLoadPrevious = React.useCallback(() => {
     onSetItemsToDisplay((prev) => {
       return {
         ...prev,
-        from: prev.from - 5,
-        to: prev.to - 5,
+        from: prev.from - DISPLAY_DATA_COUNT,
+        to: prev.to - DISPLAY_DATA_COUNT,
       };
     });
-  },[onSetItemsToDisplay]);
+  }, [onSetItemsToDisplay]);
 
   return (
     <ContentContainer>
@@ -85,15 +86,13 @@ export const TradeTable = () => {
         </tbody>
       </Table>
       <SubTableContent>
-      {itemsToDisplay.from > 0 && <LoadPreviousButton onClick={() =>
-            handleLoadPrevious()
-          }><LoadLessLabel>Load previous page</LoadLessLabel></LoadPreviousButton>}
-        <LoadNextButton
-          onClick={() =>
-            handleLoadNext()
-          }
-        >
-         <LoadMoreLabel>Load next page</LoadMoreLabel>
+        {itemsToDisplay.from > 0 && (
+          <LoadPreviousButton onClick={() => handleLoadPrevious()}>
+            <LoadLessLabel>Load previous page</LoadLessLabel>
+          </LoadPreviousButton>
+        )}
+        <LoadNextButton onClick={() => handleLoadNext()}>
+          <LoadMoreLabel>Load next page</LoadMoreLabel>
         </LoadNextButton>
       </SubTableContent>
     </ContentContainer>
@@ -101,11 +100,16 @@ export const TradeTable = () => {
 };
 
 const ContentContainer = styled.div`
+  height: 467px;
+  min-height: 467px;
+  max-height: 467px;
   display: flex;
   flex-direction: column;
+  z-index: 0;
 `;
 
 const Table = styled.table`
+  height: 100%;
   width: 100$;
   background-color: #2c333d;
 `;
@@ -122,6 +126,7 @@ const TableData = styled.td`
 const THeadRow = styled.tr`
   height: 48px;
   min-height: 48px;
+  max-height: 48px;
 `;
 
 const TableRow = styled.tr`
@@ -161,7 +166,7 @@ const LoadPreviousButton = styled(LoadNextButton)`
 `;
 
 const LoadMoreLabel = styled.span`
-  color: #00A3FF;
+  color: #00a3ff;
 `;
 
 const LoadLessLabel = styled(LoadMoreLabel)``;
