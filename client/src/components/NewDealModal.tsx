@@ -4,8 +4,6 @@ import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { datePattern, socket } from "../App";
 import { v1 as uuid } from "uuid";
 import { format } from "date-fns";
-import { AddNewDealButton } from "./AppHeader";
-import ReactDOM from "react-dom";
 
 interface IModalProps {
   onClose: () => void;
@@ -17,14 +15,14 @@ export const NewDealModal = (props: IModalProps) => {
   const [inputValue, setInputValue] = React.useState<string>("");
   const [actualDate, setActualDate] = React.useState<Date>(new Date());
 
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const interval: React.MutableRefObject<ReturnType<typeof setInterval> | undefined> = React.useRef()
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
+    interval.current = setInterval(() => {
       setActualDate(new Date());
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval.current);
   }, []);
 
   return (
