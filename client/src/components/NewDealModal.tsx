@@ -17,6 +17,8 @@ export const NewDealModal = (props: IModalProps) => {
   const [inputValue, setInputValue] = React.useState<string>("");
   const [actualDate, setActualDate] = React.useState<Date>(new Date());
 
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+
   React.useEffect(() => {
     const interval = setInterval(() => {
       setActualDate(new Date());
@@ -57,7 +59,9 @@ export const NewDealModal = (props: IModalProps) => {
               date: new Date(),
               value: inputValue,
             });
-            onClose();
+            setTimeout(() => {
+              onClose();
+            }, 1000)
           }}
         >
           Proceed
